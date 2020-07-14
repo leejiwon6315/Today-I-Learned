@@ -27,13 +27,13 @@ function allNumbersFunction(...restNum){
 const result = allNumbersFunction(...allNumbers)
 
 //destructuring
-const SoondilUnivStudent = {
+const SoongsilUnivStudent = {
 	name : '이지원',
 	major : '글로벌미디어학부',
 	region : '서울'
 };
 
-const { name, ...rest } = SoondilUnivStudent;
+const { name, ...rest } = SoongsilUnivStudent;
 	   //rest를 활용하여 name을 제외한 다른 요소들을 부분집합으로 만듬
 	   
 console.log(rest);
