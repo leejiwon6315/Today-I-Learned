@@ -137,3 +137,8 @@ function createMicrobrewery(name = 'Hipster Brew Co.') {
 ```
 <br/>
 <br/>
+
+#### 출처
+https://edu.goorm.io/lecture/20119/번역판-clean-code-javascript
+<br/>
+Robert C. Martin's 'Clean Code'
