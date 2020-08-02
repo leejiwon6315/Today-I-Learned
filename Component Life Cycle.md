@@ -1,8 +1,4 @@
-# ✏️  About React & JS  ✏️ 
-> React와 JavaScript를 공부하면서 배우게 된 학술적, 이론적인 부분들을 기재하여 놓았습니다.
-<br/>
-
-## 1. Component Life Cycle (컴포넌트 라이프 사이클)
+# Component Life Cycle (컴포넌트 라이프 사이클)
 > 컴포넌트, 클래스 컴포넌트는 Life Cycle Method를 가지며, 이는 기본적으로 React가 컴포넌트를 생성하고 없애는 기본적인 방법이다.
 <br/>
 
