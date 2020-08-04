@@ -1,5 +1,5 @@
-# 📚 FE-study 📚
-> 프론트엔드 개발에 관련된 웹프로그래밍 공부를 합니다!
+# 📚 JS-and-React 📚
+> 프론트엔드 개발에 관련된 JS, React 공부를 합니다!
 
 ## Contents
 - [CLEAN CODE](https://github.com/leejiwon6315/study-of-web/tree/master/CLEAN%20CODE)
