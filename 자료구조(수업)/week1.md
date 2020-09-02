@@ -121,9 +121,10 @@
   duration = (double)(finish = start)/CLOCKS_PER_SEC;
   return duration;
   ```
+<br/>
 
-#### 복잡도 분석
-시간복잡도
+### 복잡도 분석
+#### 시간복잡도
 + 기본적인 연산 고려
 + 알고리즘 수행시 연산의 개수를 계산
 + 입력의 개수 n에 대한 함수 -> 시간복잡도 함수, T(n)
