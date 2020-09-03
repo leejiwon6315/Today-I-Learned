@@ -23,7 +23,7 @@
 
 ### 3. Set(집합) 추상 데이터 타입을 정의하라. 다음과 같은 연산자들을 포함시켜라
 ` Create, Insert, Remove, Is_In, Union, Intersection, Difference ` 
-> 
+> 잘 모르겠음
 
 <br/>
 
@@ -57,5 +57,3 @@ int algorithm(int n){
 > 시간 복잡도 : O(log2n)
 
 <br/>
-
-### 7. 
