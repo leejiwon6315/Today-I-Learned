@@ -23,7 +23,13 @@
 
 ### 3. Set(집합) 추상 데이터 타입을 정의하라. 다음과 같은 연산자들을 포함시켜라
 ` Create, Insert, Remove, Is_In, Union, Intersection, Difference ` 
-> 잘 모르겠음
+> Create(): 집합 A를 생성한다. <br/>
+> Insert(A, a): 집합 A에 원소 a를 저장한다. <br/>
+> Remove(A, a): 집합 A에서 원소 a를 제거한다. <br/>
+> Is_In(A, a): 집합 A에서 원소 a가 있는지 확인한다. <br/>
+> Union(A, B): 집합 A와 집합 B의 합집합을 구한다. <br/>
+> intersection(A, B): 집합 A와 B의 교집합을 구한다. <br/>
+> Difference(A, B): 집합 A와 B의 차집합을 구한다. <br/>
 
 <br/>
 
@@ -45,15 +51,15 @@
 ### 6. 다음 알고리즘의 시간 복잡도를 n에 대한 함수로 나타내고, 빅오 표기법으로도 나타내라.
 ```
 int algorithm(int n){
-  int k=0;      // 대입 연산 1번
+  int k=0;     
   while(n>1){    
-    n = n/2;    // 대입 연산 log2n번
-    k++;        // 증가 연산 log2n번
+    n = n/2;    
+    k++;        
   }
-  return k;     // 반환 연산 1번
+  return k;     
 }
 ```
-> n에 대한 함수 : 2log2n + 2 <br/>
+> n에 대한 함수 : 2k-1 = n <br/>
 > 시간 복잡도 : O(log2n)
 
 <br/>
