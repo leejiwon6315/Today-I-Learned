@@ -125,6 +125,7 @@ int algorithmCount(int n){
   return count;
 }
 ```
+<br/>
 
 #### 알고리즘C
 전체 연산수 : 2n^2+1 <br/>
