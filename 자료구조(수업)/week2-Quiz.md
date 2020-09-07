@@ -46,7 +46,7 @@ public:
             printf("%4.1f\n", coef[degree]);
         }
         else{
-            printf("( %4.1f\n )", coef[degree]);
+            printf("( %4.1f )\n", coef[degree]);
         }
     }
     
