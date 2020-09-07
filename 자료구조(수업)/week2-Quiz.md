@@ -160,8 +160,8 @@ public:
     void display(const char *str = "Poly ="){
             printf("\t%s", str);
  
-        for(int i=0; i<nTerms; i++){
-            if( term[i].coeff >= 0){
+        for(int i=0; i<=nTerms; i++){
+            if( term[i].coeff > 0){
                 if(term[i].expon == 0){
                     printf("%4.1f",term[i].coeff);
                 }
@@ -169,7 +169,7 @@ public:
                     printf("%5.1f x^%d",term[i].coeff, term[i].expon);
                 }
             }
-            else{
+            else if(term[i].coeff < 0){
                 if(term[i].expon == 0){
                     printf("( %4.1f )",term[i].coeff);
                 }
@@ -178,7 +178,7 @@ public:
                 }
             }
             
-            if(i < nTerms-1) printf(" +");
+            if(i < nTerms && term[i+1].coeff) printf(" +");
             else printf("\n");
         }
     }
@@ -188,12 +188,11 @@ public:
         if(a.degree > b.degree){
             *this = a;
             nTerms += b.nTerms;     // a의 0이 아닌 항 개수 + b의 0이 아닌 항 개수를 더한후, 후에 지수가 중복된 항을 빼줌
-            
             Term *tmp = new Term[a.nTerms];     // 계산된 결과 배열을 임시로 담기 위해 할당한 배열
             
             int aCount = 0, bCount = 0, k = 0;
             
-            while(aCount < a.nTerms && bCount < b.nTerms){
+            while(aCount <= a.nTerms && bCount <= b.nTerms){
                 if(term[aCount].expon == b.term[bCount].expon){
                     tmp[k].coeff = term[aCount].coeff + b.term[bCount].coeff;
                     tmp[k].expon = b.term[bCount].expon;
@@ -217,12 +216,51 @@ public:
                 
             }
             
-            for(int i=0; i<nTerms; i++){
+            for(int i=0; i<=nTerms; i++){
                 term[i].coeff = tmp[i].coeff;
                 term[i].expon = tmp[i].expon;
             }
+            delete[] tmp;
         }
         
+        else{
+            *this = b;
+            nTerms += a.nTerms;     // a의 0이 아닌 항 개수 + b의 0이 아닌 항 개수를 더한후, 후에 지수가 중복된 항을 빼줌
+            Term *tmp = new Term[b.nTerms];     // 계산된 결과 배열을 임시로 담기 위해 할당한 배열
+            
+            int aCount = 0, bCount = 0, k = 0;
+            
+            while(aCount <= a.nTerms && bCount <= b.nTerms){
+                if(term[bCount].expon == a.term[aCount].expon){
+                    tmp[k].coeff = term[bCount].coeff + a.term[aCount].coeff;
+                    tmp[k].expon = a.term[aCount].expon;
+                    aCount ++;
+                    bCount ++;
+                    k++;
+                    nTerms --;      // 지수가 중복된 항 제외
+                }
+                else if(term[bCount].expon > a.term[aCount].expon){
+                    tmp[k].coeff = term[bCount].coeff;
+                    tmp[k].expon = term[bCount].expon;
+                    bCount ++;
+                    k++;
+                }
+                else if(term[bCount].expon < a.term[aCount].expon){
+                    tmp[k].coeff = a.term[aCount].coeff;
+                    tmp[k].expon = a.term[aCount].expon;
+                    aCount ++;
+                    k++;
+                }
+                
+            }
+            
+            for(int i=0; i<=nTerms; i++){
+                term[i].coeff = tmp[i].coeff;
+                term[i].expon = tmp[i].expon;
+            }
+            
+            delete[] tmp;
+        }
     }
     
 };
@@ -242,5 +280,6 @@ int main(){
     
     return 0;
 }
+
 
 ```
