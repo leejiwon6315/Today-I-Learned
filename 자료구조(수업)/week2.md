@@ -149,10 +149,36 @@ class는 기본적으로 private, struct는 public
 + protected: 보호. 자식 클래스까지 접근 허용. 외부 접근 불가
 + public: 공용. 누구나 접근 가능
 
+#### 함수 오버로딩
+같은 함수 이름을 가지고 있으나 매개변수, 리턴타입 등의 특징은 다른 여러개의 서브프로그램 생성을 가능하게 함
+
+#### 생성자, 소멸자
+Car class의 생성자와 소멸자
++ `Car(){}`
++ `~Car(){}`
+
+#### 상속
+```
+class SportsCar : public Car{   // Car class를 상속 받아 SportsCar class를 선언
+
+  public:
+    bool bTurbo;
+    void setTurbo(bool bTur){
+      bTurbo = bTur;
+    }
+    
+    void speedUp(){
+      if(bTurbo) speed += 20;   // bTurbo가 참이라면, speed + 20 up!
+      else Car::speedUp();      // 참이 아니면 Car에서 상속받은 speedUp() 실행
+    }
+
+}
+```
+
+<br/>
+<br/>
 
 ## [ 화상 강의 토론 ]
 
-
-<br/>
 
 ## [ 2주차 수업 소감 ]
