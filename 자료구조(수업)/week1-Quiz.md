@@ -76,7 +76,7 @@ int algorithm(int n){
 for(I=0; I<n; I*=2)
 	sub()
 ```
-> O(nlogn)
+> O(nlog2n)
 
 <br/>
 
