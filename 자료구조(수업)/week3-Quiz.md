@@ -39,13 +39,13 @@ struct Location2D{
     }
     
     bool isNeighbor(Location2D &p){
-        // 상하좌우를 탐색, 같다면 반환함
+        // 상하좌우를 탐색, p의 위치가 자신의 주변인지 검사
         return ((row == p.row && (col == p.col-1 || col == p.col+1))||(col == p.col && (row == p.row-1 || row == p.row+1)));
     }
     
     
     bool operator == (Location2D &p){
-        //  탐색한 위치의 값을 본인의 값으로 대체(나아감)
+        //  p가 자신과 같은 위치인지를 검사
         return row == p.row && col == p.col;
     }
 };
