@@ -160,3 +160,68 @@ int algorithmCount(int n){
   return count;
 }
 ```
+<br/>
+
+#### 알고리즘 A, B, C 비교
+n에 5를 대입한 결과:<br/>
+A=2(2), B=11(2n+1), C=51(2n^2+1) <br/>
+> 이론적 시간 복잡도와 일치함
+```
+#include <iostream>
+
+using namespace std;
+
+int algorithmCountA(int n){
+  int count = 0;    // 연산 횟수를 계산하기 위한 변수
+    
+  int sum = 0;
+  count ++;        // count에 대입연산 횟수 계산
+  sum = n*n;
+  count ++;        // count에 곱셈 연산 횟수 계산
+
+  return count;
+}
+
+int algorithmCountB(int n){
+  int count = 0;    // 연산 횟수를 계산하기 위한 변수
+    
+  int sum = 0;
+  count ++;        // count에 대입 연산 횟수 계산
+    
+  for(int i=1; i<=n; i++){
+    int tmp = sum + n;    // 덧셈 연산과 대입 연산을 분리하기 위해 임의로 만든 변수 tmp
+    count ++;        // count에 덧셈 연산 횟수 계산
+    sum = tmp;
+    count ++;        // count에 대입 연산 횟수 계산
+  }
+    
+  return count;
+}
+
+int algorithmCountC(int n){
+  int count = 0;      // 연산 횟수를 계산하기 위한 변수
+    
+  int sum = 0;
+  count ++;          // count에 대입 연산 횟수 계산
+    
+  for(int i=1; i<=n; i++){
+    for(int j=1; j<=n; j++){
+      int tmp = sum + 1;  // 덧셈 연산과 대입 연산을 분리하기 위해 임의로 만든 변수 tmp
+      count ++;          // count에 덧셈 연산 횟수 계산
+      sum = tmp;
+      count ++;          // count에 대입 연산 횟수 계산
+    }
+  }
+    
+  return count;
+}
+
+int main(){
+    cout << algorithmCountA(5) << "\n";
+    cout << algorithmCountB(5) << "\n";
+    cout << algorithmCountC(5) << "\n";
+    
+    return 0;
+}
+
+```
