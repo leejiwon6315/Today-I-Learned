@@ -122,12 +122,6 @@ bool isValidLoc(int r, int c){
     else return map[r][c] == '0' || map[r][c] == 'x';   // 맵 내에 탐색하지 않을 곳을 반환
 }
 
-void bfs(int x, int y){
-    queue<int> q;
-    
-    
-}
-
 int main(){
     queue<Location2D> locQueue;
     Location2D entry(1,0);  // 시작 지점 입력
