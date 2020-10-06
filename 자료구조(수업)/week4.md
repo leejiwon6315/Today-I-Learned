@@ -53,6 +53,129 @@ front <- (front+1) % MAX_QUEUE_SIZE;
 return data[front];
 ```
 
+#### 큐 C++ 구현
+```
+#define MAX_QUEUE_SIZE 100
+
+class CircularQueue {
+  protected:
+    int front; 	
+    int rear; 	
+    int data[MAX_QUEUE_SIZE]; 
+
+  public:
+    CircularQueue(){ front = rear = 0; }
+    bool isEmpty(){ return front == rear; }
+    bool isFull(){ return (rear+1)%MAX_QUEUE_SIZE == front; }
+
+    void enqueue( int val ) { 
+      if( isFull() ) error(" error: 큐가 포화상태입니다\n");
+      else {
+        rear = (rear+1) % MAX_QUEUE_SIZE;
+        data[rear] = val;
+      }
+    }
+    
+    int dequeue() { 	
+      if( isEmpty() ) error(" Error: 큐가 공백상태입니다\n");
+      else {
+        front = (front+1) % MAX_QUEUE_SIZE;
+        return data[front];
+      }
+    }
+    
+    int peek() { 		
+      if( isEmpty() ) error(" Error: 큐가 공백상태입니다\n");
+      else return data[(front+1) % MAX_QUEUE_SIZE];
+    }
+    
+    void display() { 	
+      printf( "큐 내용 : ");
+      int maxi = (front < rear) ? rear : rear+MAX_QUEUE_SIZE;
+      
+      for( int i = front+1 ; i<=maxi ; i++ ){
+        printf( "[%2d] ", data[i%MAX_QUEUE_SIZE]);
+      }
+      
+      printf( "\n");
+    }
+};
+
+```
+
+<br/>
+
+### 덱
++ Double-Ended-Queue
++ front와 rear 모두 삽입/삭제가 가능한 큐
+
+#### 덱 추상 자료형
+Deque ADT<br/><br/>
+객체
++ 전단과 후단을 통한 접근을 허용하는 요소들의 모음
+
+연산
++ `addFront(e)`: 주어진 요소 e를 덱의 맨 앞에 추가
++ `deleteFront()`: 덱이 비어있지 않으면 맨 앞 요소를 삭제하고 반환
++ `addRear(e)`: 주어진 요소 e를 덱의 맨 뒤에 추가
++ `deleteRear()`: 덱이 비어있지 않으면 맨 뒤 요소를 삭제하고 반환
++ `isEmpty()`: 큐가 비어있으면 true를 아니면 false를 반환
++ `getFront()`: 비어있지 않으면 맨 앞 요소를 삭제하지 않고 반환
++ `getRear()`: 비어있지 않으면 맨 뒤 요소를 삭제하지 않고 반환
++ `isFull()`: 덱이 가득 차 있으면 true을 아니면 false을 반환
++ `display()`: 덱의 모든 요소들의 출력
+
+#### 덱 C++ 구현
++ 배열 사용
+  - 원형 큐 클래스를 확장하여 구현 -> 원형 덱
+  - 상속 기능 사용
+
++ 연결리스트 사용
+  - 양 쪽에서 삽입/삭제가 가능해야함
+  - 이중 연결리스트 사용
+<br/>
+
+```
+class CircularDeque : public CircularQueue {
+  public:
+    CircularDeque() { }
+    void addRear( int val ) { enqueue(val);} 
+    int deleteFront() { return dequeue(); } 
+    int getFront() { return peek(); } 
+
+    void display() { 	
+      printf( "덱의 내용 : "); 
+      int maxi = (front < rear) ? rear : rear+MAX_QUEUE_SIZE;
+      
+      for( int i = front+1 ; i<=maxi ; i++ )
+        printf( "[%2d] ", data[i%MAX_QUEUE_SIZE]);
+      printf( "\n");
+    }
+
+    int getRear( ){ 
+      if( isEmpty() ) error(" Error: 덱이 공백상태입니다\n");
+      else return data[rear];
+    }
+    
+    void addFront( int val ) {
+      if( isFull() ) error(" error: 덱이 포화상태입니다\n");
+      else {
+        data[front] = val;
+        front = (front-1+MAX_QUEUE_SIZE) % MAX_QUEUE_SIZE;
+      }
+    }
+    
+    int deleteRear() {
+      if( isEmpty() ) error(" Error: 덱이 공백상태입니다\n");
+      else {
+        int ret = data[rear];
+        rear = (rear-1+MAX_QUEUE_SIZE) % MAX_QUEUE_SIZE;
+        return ret;
+      }
+    }
+};
+```
+
 ## [ 화상 강의 토론 ]
 
 
