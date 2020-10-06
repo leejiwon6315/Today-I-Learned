@@ -32,6 +32,27 @@ Queue ADT<br/><br/>
 + `front` : 첫번째 요 하나 앞의 인덱스
 + `rear` : 마지막 요소의 인덱스
 
+#### 공백/포화상태
++ 공백상태 : `front == rear`
++ 포화상태 : `front%M == (rear+1)%M`
+원형 큐에서 하나의 공간은 항상 비워둔다. <br/>
+front는 맨 첫번 째 요소의 하나 앞 인덱스를 가리킨다. 만약 하나의 공간을 비워놓지 않으면 rear와 front가 같아져 공백상태인지, 포화상태인지 구분하기 어렵다.
+
+#### 큐의 연산
++ 나머지 연산을 사용하여 인덱스를 원형으로 회전
++ 삽입 연산
+```
+enqueue(x)
+rear <- (rear+1) % MAX_QUEUE_SIZE;
+data[rear] <- x;
+```
+
+```
+dequeue(x)
+front <- (front+1) % MAX_QUEUE_SIZE;
+return data[front];
+```
+
 ## [ 화상 강의 토론 ]
 
 
