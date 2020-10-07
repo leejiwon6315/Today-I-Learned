@@ -88,7 +88,7 @@ else{
 <br/>
 <br/>
 
-## C3.
+## C4.
 ### 4장_2 PPT 8페이지에 있는 미로탐색 문제를 큐를 이용하여 너비우선탐색(Breadth First Search)방식으로 구현하세요.
 ```
 #include <iostream>
