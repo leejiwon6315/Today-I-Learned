@@ -126,6 +126,7 @@ int main(){
     return 0;
 }
 ```
+<br/>
 
 ### C5_2. 연결리스트로 스택을 구현하세요(5장_2 PPT 2-5페이지와 첨부된 C5 자료 참고)
 ```
@@ -241,8 +242,9 @@ int main(){
     stack.display();
     return 0;
 }
-
 ```
+<br/>
+
 ### C5_3. 연결리스트로 큐를 구현하세요(5장_2 PPT 6-11페이지와 첨부된 C5 자료 참고)
 ```
 #include <iostream>
@@ -334,6 +336,4 @@ int main(){
     que.display();
     return 0;
 }
-
-
 ```
