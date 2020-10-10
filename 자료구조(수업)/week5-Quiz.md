@@ -61,6 +61,71 @@ top->[a| ]->[b| ]->[c| ]->[d| ] <br/>
 
 ## C5.
 ### C5_1. 5장_1 PPT 15-17페이지에 있는 2차원 배열 코드를 이해하고 실행하세요.
+```
+#include <iostream>
+
+using namespace std;
+
+int** alloc2DInt(int rows, int cols){
+    if( rows <= 0 || cols <= 0 ) return NULL;
+    
+    int** mat = new int* [ rows ];
+    
+    for (int i=0; i<rows; i++){
+        mat[i] = new int [cols];
+    }
+    
+    return mat;
+}
+
+void free2DInt( int** mat, int rows){
+    if( mat != NULL ){
+        
+        for( int i=0 ; i<rows ; i++ ){
+            delete [] mat[i];
+        }
+        
+        delete [] mat;
+    }
+}
+
+void set2DRandom( int **mat, int rows, int cols){
+    for( int i=0; i<rows; i++ ){
+        for( int j=0; j<cols; j++ ){
+            mat[i][j] = rand()%100;;
+        }
+    }
+}
+
+void print2DInt( int **mat, int rows, int cols){
+    cout << "행의 수 = "<< rows <<" 열의 수 = " << cols << "\n";
+    
+    for (int i=0 ; i<rows ; i++ ){
+        for (int j=0 ; j<cols ; j++ ){
+            cout << "( " << mat[i][j] << " ) ";
+        }
+        cout << "\n";
+    }
+}
+
+
+int main(){
+    
+    int** mat;
+    int rows, cols;
+
+    cout << "행과 열을 입력 하시오 \n";
+    cin >> rows >> cols;
+
+    mat = alloc2DInt( rows, cols );
+    
+    set2DRandom( mat, rows, cols );
+    print2DInt( mat, rows, cols );
+    free2DInt( mat, rows);
+    
+    return 0;
+}
+```
 
 ### C5_2. 연결리스트로 스택을 구현하세요(5장_2 PPT 2-5페이지와 첨부된 C5 자료 참고)
 
