@@ -130,7 +130,6 @@ int main(){
 ### C5_2. 연결리스트로 스택을 구현하세요(5장_2 PPT 2-5페이지와 첨부된 C5 자료 참고)
 ```
 #include <iostream>
-#include <string.h>
 
 #define MAX_STRING 100
 
@@ -245,3 +244,96 @@ int main(){
 
 ```
 ### C5_3. 연결리스트로 큐를 구현하세요(5장_2 PPT 6-11페이지와 첨부된 C5 자료 참고)
+```
+#include <iostream>
+
+using namespace std;
+
+class Node{
+    Node* link;
+    int data;
+    
+public:
+    Node( int val=0)
+        : data(val), link(NULL) {}
+    
+    
+    Node* getLink(){    // link가 private로 선언되어 있어 접근하기 위해 get으로 link를 가져옴
+        return link;
+    }
+    
+    void setLink( Node *next ){    // 외부에서 link에 접근
+        link = next;
+    }
+    
+    void display(){
+        cout << "<" << data << ">";
+    }
+};
+
+
+class LinkedQueue
+{
+    Node*    front;
+    Node*    rear;
+public:
+    LinkedQueue(): front(NULL), rear(NULL) {}
+    ~LinkedQueue(){
+        while(!isEmpty()) delete dequeue();
+    }
+    
+    bool isEmpty(){
+        return front == NULL;
+    }
+
+    void enqueue (Node* n){
+        if(isEmpty()) front = rear = n;
+        else{
+            rear -> setLink(n); // rear의 다음 노드가 n
+            rear = n;   // rear를 n으로 교체
+        }
+    }
+
+    Node* dequeue(){
+        if(isEmpty()) return NULL;
+        
+        Node *p = front;
+        front = front->getLink();
+        
+        if(front == NULL) rear = NULL;  // 삭제 후 연결할 다음 노드가 null 이면 rear도 null, 공백상태
+        return p;
+    }
+    
+    Node* peek (){
+        return front;
+    }
+    
+    void display(){
+        cout << "[큐내용] : \n";
+        
+        for(Node *p=front; p!=NULL; p=p->getLink()){
+            p->display();
+        }
+        cout << "\n";
+    }
+};
+
+int main(){
+    LinkedQueue que;
+    
+    for( int i=1 ; i<10 ; i++ ){
+        que.enqueue( new Node(i) );
+    }
+    
+    que.display();
+    
+    delete que.dequeue();
+    delete que.dequeue();
+    delete que.dequeue();
+    
+    que.display();
+    return 0;
+}
+
+
+```
