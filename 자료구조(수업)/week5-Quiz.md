@@ -128,5 +128,120 @@ int main(){
 ```
 
 ### C5_2. 연결리스트로 스택을 구현하세요(5장_2 PPT 2-5페이지와 첨부된 C5 자료 참고)
+```
+#include <iostream>
+#include <string.h>
 
+#define MAX_STRING 100
+
+using namespace std;
+
+class Student{
+    int id;
+    char name[MAX_STRING];
+    char dept[MAX_STRING];
+    
+public:
+    Student(int i=0, char* nam="", char* dep=""){
+        set( i, nam, dep );
+    }
+    
+    void set(int i, char* nam, char* dep){
+        id = i;
+        strcpy( name, nam );
+        strcpy( dept, dep );
+    }
+    
+    void display(){
+        cout<< "학번 : " << id << ",  이름 : " << name << ",  학과 : " << dept << "\n";
+    }
+};
+
+class Node : public Student{
+    Node* link; // 다음 노드를 가리키는 포인터 변수
+    
+public:
+    Node( int id=0, char* name="", char* dept="")
+        : Student(id, name, dept) {
+            link = NULL;
+        }
+    
+    ~Node(void){}
+    
+    Node* getLink(){    // link가 private로 선언되어 있어 접근하기 위해 get으로 link를 가져옴
+        return link;
+    }
+    
+    void setLink( Node *p ){    // 외부에서 link에 접근
+        link = p;
+    }
+};
+
+class LinkedStack{
+    Node* top;
+public:
+    LinkedStack(){
+        top = NULL;       //top을 초기화해줌
+    }
+    ~LinkedStack(){
+        while(!isEmpty()) delete pop();
+    }
+    
+    bool isEmpty(){
+        return top == NULL;
+    }
+    
+    void push( Node *n ){
+        if(top == NULL) top = n;
+        else{
+            n -> setLink(top);  // n의 다음 노드가 top
+            top = n;    // top을 n으로 바꿔줌;
+        }
+    }
+    
+    Node* pop(){
+        if(isEmpty()) return NULL;
+        
+        Node *p = top;
+        top = top->getLink();   // top의 다음 노드를 top으로 설정
+        
+        return p;
+    }
+    
+    Node* peek(){
+        return top;
+    }
+    
+    void display(){
+        cout << "[LinkedStack]\n";
+        
+        for(Node *p=top; p!=NULL; p=p->getLink()){
+            p-> display();
+        }
+        cout << "\n";
+    }
+};
+
+int main(){
+    
+    LinkedStack stack;
+    stack.push( new Node(2015130007, "lee", "media") );
+    stack.push( new Node(2015130100, "kim", "computer") );
+    stack.push( new Node(2015130135, "park", "soft") );
+    stack.display();
+
+    Node *node = stack.pop();
+    
+    cout << "[Pop 항목]\n";
+    
+    node->display();
+    
+    cout << "\n";
+    
+    delete node;
+    stack.display();
+    return 0;
+}
+
+```
 ### C5_3. 연결리스트로 큐를 구현하세요(5장_2 PPT 6-11페이지와 첨부된 C5 자료 참고)
