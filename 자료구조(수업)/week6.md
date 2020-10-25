@@ -120,6 +120,7 @@ public:
 class Node {
     Node* link;
     int data;
+    
 public:
     Node( int val=0 ) : data(val), link(NULL){}
     
@@ -147,8 +148,9 @@ public:
     }
 };
 
-class LinkedList {
+class LinkedList{
     Node org;
+    
 public:
     LinkedList(): org(0) {}
     ~LinkedList() { clear(); }
@@ -161,7 +163,7 @@ public:
 	      delete remove(0);
     }
 
-    Node* getEntry(int pos) {
+    Node* getEntry(int pos){
         Node* n = &org;
 
         for(int i=-1 ; i<pos ; i++, n=n->getLink())
@@ -170,18 +172,18 @@ public:
         return n;
     }
 
-    void insert(int pos, Node *n) {
+    void insert(int pos, Node *n){
 	      Node* prev = getEntry(pos-1);
 	
         if( prev != NULL ) prev->insertNext( n );
     }
 
-    Node* remove(int pos) {
+    Node* remove(int pos){
 	      Node* prev = getEntry(pos-1);
 	      return prev->removeNext();
     }
     
-    void display( ) {
+    void display(){
         printf( "[전체 항목 수 = %2d] : ", size());
         
         for( Node *p = getHead() ; p != NULL ; p=p->getLink() )
