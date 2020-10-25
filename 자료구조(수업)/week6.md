@@ -117,6 +117,10 @@ public:
 + 헤드 노드: 포인터 변수가 아니라 Node 객체
 
 ```
+#include <cstdio>
+
+using namespace std;
+
 class Node {
     Node* link;
     int data;
@@ -133,18 +137,18 @@ public:
     bool hasData(int val){ return data == val; }
     
     void insertNext( Node *n ){
-	      if( n != NULL ) {
-       	    n->link = link;
-	          link = n;
-	      }
+        if( n != NULL ) {
+            n->link = link;
+            link = n;
+        }
     }
     
     Node* removeNext() {
-	      Node* removed = link;
+        Node* removed = link;
         
-	      if( removed != NULL ) link = removed->link;
+        if( removed != NULL ) link = removed->link;
         
-	      return removed;
+        return removed;
     }
 };
 
@@ -159,8 +163,8 @@ public:
     bool isEmpty(){ return getHead()==NULL; }
 
     void clear(){
-	    while(!isEmpty())
-	      delete remove(0);
+        while(!isEmpty())
+            delete remove(0);
     }
 
     Node* getEntry(int pos){
@@ -173,14 +177,24 @@ public:
     }
 
     void insert(int pos, Node *n){
-	      Node* prev = getEntry(pos-1);
-	
+        Node* prev = getEntry(pos-1);
+    
         if( prev != NULL ) prev->insertNext( n );
     }
 
     Node* remove(int pos){
-	      Node* prev = getEntry(pos-1);
-	      return prev->removeNext();
+        Node* prev = getEntry(pos-1);
+        return prev->removeNext();
+    }
+    
+    int size(){
+        int cnt = 0;
+        
+        for(Node* p=getHead(); p!=NULL;p=p->getLink()){
+            cnt ++;
+        }
+        
+        return cnt;
     }
     
     void display(){
@@ -189,7 +203,8 @@ public:
         for( Node *p = getHead() ; p != NULL ; p=p->getLink() )
             p->display();
             
-        printf( "\n:);
+        printf( "\n: ");
     }
 };
+
 ```
