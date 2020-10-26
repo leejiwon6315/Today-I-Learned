@@ -66,9 +66,9 @@ public:
     void insert( int pos, int e ){
         if( !isFull() && pos >= 0 && pos<=length ) {
            for( int i=length ; i>pos ; i-- )
-                data[i] = data[i-1]; // 뒤로 한 칸씩 밀고
-                data[pos] = e; // pos에 e를 복사하고
-                length++; // 리스트 항목의 개수 증가
+                data[i] = data[i-1];
+                data[pos] = e;
+                length++;
          }
          else error("포화상태 오류 또는 삽입 위치 오류");
     }
@@ -208,3 +208,13 @@ public:
 };
 
 ```
+<br/>
+<br/>
+
+## [ 화상 강의 토론 ]
+
+
+<br/>
+<br/>
+
+## [ 6주차 수업 소감 ]
