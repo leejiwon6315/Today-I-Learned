@@ -16,6 +16,11 @@
 + 이진탐색
 + 영역채색
 
+#### 다중 순환
+한 번의 호출이 발생할 때마다 두 개 이상의 순환호출이 이루어지는 경우
++ 선형 순환 : 팩토리얼, 거듭 제곱
++ 이진 순환 : 피보나치, 하노이 탑
+
 <br/>
 
 ### 팩토리얼
@@ -31,6 +36,7 @@ n! = n=0, 1;
 ```
 int factorial(int n){
   if(n <= 1) return 1;
+  
   elsw return (n*factorial(n-1));
 }
 ```
@@ -81,6 +87,166 @@ double pow(double x, double n){
   else return x*pow(x*x, (n-1)/2)
 }
 ```
+
+### 피보나치 수열
+순환 호출의 비효율적인 예
+> 이전에 계산 했던 것을 중복하 계산함
+
+#### 피보나치 수열 구현(순환)
+```
+int fib(int n){
+     if(n==0) return 0;
+     
+     if(n==1) return 1;
+     
+     return (fib(n-1) + fib(n-2));
+}
+```
+
+#### 피보나치 수열 구현(반복)
+```
+int fib(int n){
+     if(n<2) return n;
+     
+     int tmp, current = 1, last = 0;
+     
+     for(int i=2; i<=n; i++){
+          tmp = current;
+          current += last;
+          last = tmp;
+     }
+     
+     return current
+}
+```
+<br/>
+
+### 하노이 탑
+3개의 막대 중 첫번째에 크기 순(작은 원판이 위)으로 원판들이 쌓여있음<br/>
+이 원판 n개를 다른 막대로 옮기는 문제
++ 한 번에 하나의 원판만 이동할 수 있음 
++ 맨 위에 있는 원판만 이동할 수 있음
++ 크기가 작은 원판 위에 큰 원판이 쌓일 수 없음 
++ 중간의 막대를 이용할 수 있으나 앞의 조건들을 지켜야 함 
+
+#### 하노이 탑 구현
+```
+void hanoi(int n, char from, char tmp, char to)
+     if( n==1 ) printf("원판 1을 %c에서 %c으로 옮긴다.\n",from,to);
+     else {
+          hanoi(n-1, from, to, tmp);
+          printf("원판 %d을 %c에서 %c으로 옮긴다.\n",n, from, to);
+          hanoi(n-1, tmp, from, to);
+     }
+}
+
+void main(){
+     hanoi(4, 'A', 'B', 'C');
+}
+```
+<br/>
+
+### 영역 채색
+이진 영상엣 연결된 객체들을 고유한 색으로 칠하기
+
+#### 영역 채색 구현
+> image가 아닌 int 형식으로 구현함 
+```
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int img[9][20] = {
+    0,0,0,0,0,0,9,0,0,0,0,9,9,9,9,9,0,0,9,9,
+    9,9,9,9,9,0,9,0,0,0,0,0,0,0,0,9,0,0,9,9,
+    0,0,9,0,0,0,9,0,0,0,0,9,9,9,9,9,0,0,9,9,
+    0,9,9,9,0,0,9,9,9,0,0,9,0,0,0,0,0,0,9,9,
+    0,9,0,9,0,0,9,0,0,0,0,9,9,9,9,9,0,0,9,9,
+    9,9,0,9,9,0,9,0,0,0,0,0,0,0,0,0,0,0,9,9,
+    9,0,0,0,9,0,9,0,0,0,0,0,9,0,9,0,0,0,0,0,
+    9,0,0,0,9,0,9,0,0,0,0,0,9,0,9,0,0,0,9,9,
+    0,0,0,0,0,0,9,0,0,0,0,9,9,9,9,9,0,0,9,9
+  };
+
+void labelComponent(int img[9][20], int x, int y, int label){
+    if( x<0 || y<0 || x>=20 || y>=9 ) return;
+
+    if( img[y][x] == 9 ) {
+    img[y][x] = label;
+        
+    labelComponent( img, x-1, y, label );
+    labelComponent( img,  x, y-1, label );
+    labelComponent( img, x+1, y, label );
+    labelComponent( img,  x, y+1, label );
+    }
+}
+
+void blobColoring( int img[9][20] ) {
+    int label = 1;
+
+    for( int y=0 ; y<9 ; y++ ){
+        for( int x=0 ; x<20 ; x++ ){
+            if( img[y][x] == 9 ){
+                labelComponent( img, x, y, label++ );
+            }
+        }
+    }
+}
+
+void printI(int img[9][20], string str = ""){
+    
+    cout << str << "\n";
+    
+    for(int i=0; i<9; i++){
+        for(int j=0; j<20; j++){
+            if(!img[i][j])
+                cout << ".";
+            
+            else
+                cout << img[i][j];
+        }
+        cout << "\n";
+    }
+}
+
+int main(){
+    
+    printI( img, "<Original image>" );
+    blobColoring( img );
+    cout << "\n";
+    printI( img, "<Labelled image>" );
+
+    return 0;
+}
+```
+
+#### 영역 채색 구현 결과
+```
+<Original image>
+......9....99999..99
+99999.9........9..99
+..9...9....99999..99
+.999..999..9......99
+.9.9..9....99999..99
+99.99.9...........99
+9...9.9.....9.9.....
+9...9.9.....9.9...99
+......9....99999..99
+
+<Labelled image>
+......1....22222..33
+44444.1........2..33
+..4...1....22222..33
+.444..111..2......33
+.4.4..1....22222..33
+44.44.1...........33
+4...4.1.....5.5.....
+4...4.1.....5.5...66
+......1....55555..66
+```
+
+<br/>
 
 <br/>
 <br/>
