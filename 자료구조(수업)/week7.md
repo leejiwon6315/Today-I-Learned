@@ -248,6 +248,52 @@ int main(){
 
 <br/>
 
+### 미로 탐색
+순환을 활용한 dfs로 구현됨
+
+#### 미로 탐색 구현 
+```
+constint MAZE_SIZE = 6;
+char map[MAZE_SIZE][MAZE_SIZE] = {
+	{'1', '1', '1', '1', '1', '1'},
+	{'e', '0', '1', '0', '0', '1'},
+	{'1', '0', '0', '0', '1', '1'},
+	{'1', '0', '1', '0', '1', '1'},
+	{'1', '0', '1', '0', '0', 'x'},
+	{'1', '1', '1', '1', '1', '1'},
+};
+
+void searchRecur( Location2D pt ) {
+     printf("(%d,%d) ", pt.row, pt.col);
+     
+     if( done ) return;          
+     if( pt == locExit ) { 
+	     done = true;
+	     return;
+     }
+     
+     int r = pt.row;
+     int c = pt.col;
+     map[r][c] = '.';
+
+     if( isValidLoc(r-1, c) ) searchRecur( Location2D(r-1, c) );
+     if( isValidLoc(r+1, c) ) searchRecur( Location2D(r+1, c) );
+     if( isValidLoc(r, c-1) ) searchRecur( Location2D(r, c-1) );
+     if( isValidLoc(r, c+1) ) searchRecur( Location2D(r, c+1) );
+}
+
+void main()
+{
+     locEntry.set(1,0);
+     locExit.set(4,5);
+     
+     searchRecur( locEntry ); 
+     
+     if(done) printf("\n ==> 출구가 탐지되었습니다.\n");
+     else printf("\n ==> 출구를 찾지 못했습니다.\n");
+}
+```
+
 <br/>
 <br/>
 
