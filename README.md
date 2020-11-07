@@ -6,5 +6,5 @@
 + [React](https://github.com/leejiwon6315/Today-I-Learned/tree/master/React)
 + [Redux](https://github.com/leejiwon6315/Today-I-Learned/tree/master/Redux)
 + [자료구조(수업)](https://github.com/leejiwon6315/Today-I-Learned/tree/master/자료구조(수업))
-+ 데이터베이스(작성 예정)
++ [데이터베이스](https://github.com/leejiwon6315/Today-I-Learned/tree/master/데이터베이스)
 + 컴퓨터구조(작성 예정)
