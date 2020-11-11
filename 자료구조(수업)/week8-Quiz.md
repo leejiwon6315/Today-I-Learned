@@ -63,6 +63,70 @@
 <br/>
 
 ## C8
-### 
+### 트리의 순회결과(전위, 중위, 후위, 레벨)와 전체 노드수, 단말노드 개수, 트리의 높이를 출력하는 코드를 작성하세요.
 ```
+void setRoot(BinaryNode* node){
+  root = node;
+}
+    
+BinaryNode* getRoot(){
+  return root;
+}
+
+bool isEmpty(){
+  return root==NULL;
+}
+
+int getCount(){
+  // 전체 노드 수
+  return isEmpty() ? 0 : getCount(root);
+}
+
+int getSubCount(){
+  // 하위 노드 수
+  return isEmpty() ? 0 : getLeafCount(root);
+}
+
+int getHeight(){
+  // 트리의 높이
+  return isEmpty() ? 0 : getHeight(root);
+}
+
+void inorder(){
+  // 중위 순회
+  printf("\n inorder: ");
+  inorder(root);
+}
+
+void preorder(){
+  // 전위 순회
+  printf("\n  preorder: ");
+  preorder(root);
+}
+
+void postorder(){
+  // 후위 순회
+  printf("\n postorder: ");
+  postorder(root);
+ }
+    
+void levelorder(){
+  // 레벨 
+  printf("\nlevelorder: ");
+  
+  if(!isEmpty()) {
+    CircularQueue q;
+    q.enqueue( root );
+    
+    while(!q.isEmpty()){
+      BinaryNode* n = q.dequeue();
+      
+      if( n != NULL ) {
+        printf(" [%c] ", n->getData());
+        q.enqueue(n->getLeft ());
+        q.enqueue(n->getRight());
+      }
+    }
+  }
+}
 ```
