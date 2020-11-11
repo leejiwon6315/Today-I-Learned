@@ -99,7 +99,7 @@ int fib(int n){
 }
 
 void printFib(){
-    for(int i=10; i>-0; i--){
+    for(int i=10; i>0; i--){
         cout << "Fibo(" << i << ") = " << arr[i] << "번" << "\n";
     }
 }
