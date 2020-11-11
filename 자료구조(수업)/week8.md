@@ -76,8 +76,8 @@
   void preOrder(TNode *n){
     if (n != NULL){
       printf("[%c] ", n->data); 
-      preorder(n->left);
-      preorder(n->right); 
+      preOrder(n->left);
+      preOrder(n->right); 
     }
   }
   ```
@@ -87,9 +87,9 @@
   ```
   void inOrder(TNode *n){ 
     if( n != NULL ){
-    	inorder(n->left);
+    	inOrder(n->left);
     	printf("[%c] ", n->data);
-    	inorder(n->right);
+    	inOrder(n->right);
     }
   }
 
@@ -106,6 +106,22 @@
     }
   }
   ```
+
+#### 레벨 순회
+노드를 레벨 순으로 검사
+```
+level_order(){
+  queue<int> q;
+  q.push(root);
+
+  while(!q.empty()){
+    x = q.front;
+    q.pop();
+    q.push(left(x));
+    q.push(righjt(x));
+  }
+}
+```
 
 <br/>
 <br/>
