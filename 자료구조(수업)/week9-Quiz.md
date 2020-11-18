@@ -91,3 +91,117 @@ E     G   H
 
 ## C9
 ### 이진탐색트리를 만들고, 노드 9의 삭제 전후의 레벨 순회 결과를 출력하는 코드를 작성하세요.
+```
+#include "BinSrchTree.h"
+#include <cstdio>
+
+class BinSrchTree :public BinaryTree {
+
+    public:
+          BinSrchTree(void){ }
+          ~BinSrchTree(void){ }
+
+
+    BinaryNode* searchRecur(BinaryNode* n, int key){
+        if(n == NULL) return NULL;   
+        
+        if(key == n->getData()) return n;
+        else if(key < n->getData()) return searchRecur(n->getLeft(), key);
+        else return searchRecur(n->getRight(), key);
+    }
+
+    void insertRecur(BinaryNode* r, BinaryNode* n){
+        if(n->getData() == r->getData()) return;
+        else if (n->getData() < r->getData()){
+            if (r->getLeft() == NULL) r->setLeft(n);
+            else insertRecur(r->getLeft(), n);
+        }
+        else{
+            if(r->getRight() == NULL) r->setRight(n);
+            else insertRecur(r->getRight(), n);
+        }
+    }
+
+    void remove(int data){
+        if (isEmpty()) return;
+
+        BinaryNode* parent = NULL;
+        BinaryNode* node = root;
+        
+        while(node != NULL && node->getData() != data){
+            parent = node;
+            node = (data < node->getData()) ? node->getLeft() : node->getRight();
+        }
+        if(node == NULL){
+            printf(" Error: key is not in the tree!\n");
+            return;
+        }
+        else remove(parent, node);
+    }
+
+    void remove(BinaryNode* parent, BinaryNode* node){
+        
+        if(node->isLeaf()){
+        // case 1
+            if(parent == NULL) root = NULL;
+            else{
+            
+                if(parent->getLeft() == node) parent->setLeft(NULL);
+                else parent->setRight(NULL);
+            }
+        }
+        
+        else if(node->getLeft() == NULL || node->getRight() == NULL){
+        // case 2
+            BinaryNode* child = (node->getLeft() != NULL) ? node->getLeft() : node->getRight();
+            if(node == root) root = child;
+            else{
+                if(parent->getLeft() == node) parent->setLeft(child);
+                else parent->setRight(child);
+            }
+        }
+
+        else{
+        // case 3
+            BinaryNode* succp = node;
+            BinaryNode* succ = node->getRight();
+            
+            while(succ->getLeft() != NULL){
+                succp = succ;
+                succ = succ->getLeft();
+            }
+
+            if(succp->getLeft() == succ) succp -> setLeft(succ->getRight());
+            else succp->setRight(succ->getRight());
+
+            node -> setData(succ->getData());
+            node = succ;
+        }
+        
+        delete node;
+    }
+};
+
+int main()
+{
+    BinSrchTree tree;
+
+    BinaryNode* n2 = new BinaryNode('2', NULL, NULL);
+    BinaryNode* n4 = new BinaryNode('4', NULL, NULL);
+    BinaryNode* n6 = new BinaryNode('6', NULL, NULL);
+    BinaryNode* n8 = new BinaryNode('8', NULL, NULL);
+    BinaryNode* n1 = new BinaryNode('1', NULL, n2);
+    BinaryNode* n3 = new BinaryNode('3', n1, n4);
+    BinaryNode* n7 = new BinaryNode('7', n6, n8);
+    BinaryNode* n9 = new BinaryNode('9', n7, NULL);
+    BinaryNode* n5 = new BinaryNode('5', n3, n9);
+
+
+    tree.setRoot(n5);
+    printf("노드 9 삭제 전 레벨 순회");
+    tree.levelorder();
+    printf("노드 9 삭제 후 레벨 순회");
+    tree.remove('9');
+    tree.levelorder();
+}
+```
