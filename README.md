@@ -7,3 +7,4 @@
 + [Redux](https://github.com/leejiwon6315/Today-I-Learned/tree/master/Redux)
 + [Node js](https://github.com/leejiwon6315/Today-I-Learned/tree/master/데이터베이스)
 + [자료구조(수업)](https://github.com/leejiwon6315/Today-I-Learned/tree/master/자료구조(수업))
++ [etc.](https://github.com/leejiwon6315/Today-I-Learned/tree/master/etc.)
