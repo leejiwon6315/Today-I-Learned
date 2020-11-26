@@ -425,7 +425,40 @@
 ```
 
 ## C10
-### 
-```
+### 1. 프로그램 10.1(HeapNode) 과 10.2(MaxHeap)을 이용하여 프로그램 10.6을 구현하세요. (C10자료 참고)
 
+### 2. 프로그램 10.7(STL의 우선순위큐를 이용한 정렬)을 구현하고, 내림차순(decreasing) 정렬을 테스트하세요
+```
+#include <iostream>
+#include <queue>
+#include <vector>
+using namespace std;
+
+void heapSortDec(vector<int> &a){
+    priority_queue<int> maxHeap;
+    
+    for(int i=0; i<a.size(); i++)
+        maxHeap.push(a[i]);
+    
+    for(int i=0; i<a.size(); i++){
+        a[i] = maxHeap.top();
+        maxHeap.pop();
+    }
+    
+}
+
+int main(){
+    vector<int> a = {3, 5, 9, 10, 423, 2, 1, 64, 67};
+    
+    heapSortDec(a);
+    
+    for(int i=0; i<a.size(); i++){
+        if(i == a.size()-1) cout << a[i] << "\n";
+        else cout << a[i] <<", ";
+    }
+    
+    return 0;
+}
+
+>> 결과 : 423, 67, 64, 10, 9, 5, 3, 2, 1
 ```
