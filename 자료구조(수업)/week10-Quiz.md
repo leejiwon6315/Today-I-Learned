@@ -426,6 +426,136 @@
 
 ## C10
 ### 1. 프로그램 10.1(HeapNode) 과 10.2(MaxHeap)을 이용하여 프로그램 10.6을 구현하세요. (C10자료 참고)
+```
+#include <iostream>
+#include <vector>
+#include <stdio.h>
+#include <cstdio>
+#define MAX_ELEMENT 200
+
+using namespace std;
+
+class HeapNode
+{
+    int key;
+
+public:
+    HeapNode( int key=0 ) : key(key) {}
+    ~HeapNode(void){}
+    void setKey(int k){ key = k; }
+    int getKey(){ return key; }
+    void display(){ printf("\t%d", key); }
+};
+
+
+class MaxHeap
+{
+    HeapNode node[MAX_ELEMENT];
+    int size;
+
+public:
+    MaxHeap() : size(0){}
+    bool isEmpty(){ return size == 0; }
+    bool isFull(){ return size == MAX_ELEMENT-1; }
+
+    HeapNode& getParent(int i){ return node[i/2]; }
+    HeapNode& getLeft(int i){ return node[i*2]; }
+    HeapNode& getRight(int i){ return node[i*2+1];}
+
+    void insert( int key ){
+        if( isFull() ) return;
+
+        int i = ++size;
+
+        while( i!=1 && key>getParent(i).getKey()){
+            node[i] = getParent(i);
+            i /= 2;
+        }
+        node[i].setKey( key );
+    }
+
+    HeapNode remove(){
+        if( isEmpty() ) return NULL;
+
+        HeapNode root = node[1];
+        HeapNode last = node[size--];
+
+        int parent = 1;
+        int child = 2;
+
+        while( child <= size ){
+
+          if( child < size && getLeft(parent).getKey() < getRight(parent).getKey()) child++;
+          if( last.getKey() >= node[child].getKey() ) break;
+
+          node[parent] = node[child];
+          parent = child;
+          child *= 2;
+        }
+
+        node[parent] = last;
+        return root;
+    }
+
+    HeapNode find(){ return node[1]; }
+
+    void display(){
+        for(int i=1, level=1 ; i<= size ; i++){
+            if( i == level ) {
+                printf("\n");
+                level *= 2;
+            }
+            node[i].display();
+        }
+        printf("\n-------------------------------------------");
+    }
+};
+
+void heapSortLess(vector<int> &a){
+    MaxHeap mHeap;
+    
+    for(int i : a) mHeap.insert(i);
+    for(int i=a.size()-1; i>=0; i--){
+        a[i] = mHeap.remove().getKey();
+    }
+}
+
+void heapSortGreater(vector<int> &a){
+    MaxHeap mHeap;
+    
+    for(int i : a) mHeap.insert(i);
+    for(int i=0; i<a.size(); i++){
+        a[i] = mHeap.remove().getKey();
+    }
+}
+
+int main(){
+    vector<int> a = {3, 5, 9, 10, 423, 2, 1, 64, 67};
+    heapSortLess(a);
+    
+    cout << "오름차순\n";
+    for(int i : a){
+        if(i == a[a.size()-1]) cout << i << "\n\n";
+        else cout << i <<", ";
+    }
+    
+    heapSortGreater(a);
+    cout << "내림차순\n";
+    for(int i : a){
+        if(i == a[a.size()-1]) cout << i << "\n\n";
+        else cout << i <<", ";
+    }
+    return 0;
+}
+
+[결과]
+오름차순
+1, 2, 3, 5, 9, 10, 64, 67, 423
+
+내림차순
+423, 67, 64, 10, 9, 5, 3, 2, 1
+```
+<br/>
 
 ### 2. 프로그램 10.7(STL의 우선순위큐를 이용한 정렬)을 구현하고, 내림차순(decreasing) 정렬을 테스트하세요
 ```
@@ -436,29 +566,28 @@ using namespace std;
 
 void heapSortDec(vector<int> &a){
     priority_queue<int> maxHeap;
-    
-    for(int i=0; i<a.size(); i++)
-        maxHeap.push(a[i]);
-    
+
+    for(int i : a) maxHeap.push(i);
+
     for(int i=0; i<a.size(); i++){
         a[i] = maxHeap.top();
         maxHeap.pop();
     }
-    
+
 }
 
 int main(){
     vector<int> a = {3, 5, 9, 10, 423, 2, 1, 64, 67};
     
     heapSortDec(a);
-    
-    for(int i=0; i<a.size(); i++){
-        if(i == a.size()-1) cout << a[i] << "\n";
-        else cout << a[i] <<", ";
+
+    for(int i : a){
+        if(i == a[a.size()-1]) cout << i << "\n";
+        else cout << i <<", ";
     }
-    
     return 0;
 }
 
->> 결과 : 423, 67, 64, 10, 9, 5, 3, 2, 1
+[결과]
+423, 67, 64, 10, 9, 5, 3, 2, 1
 ```
