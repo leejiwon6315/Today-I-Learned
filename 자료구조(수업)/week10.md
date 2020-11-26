@@ -63,7 +63,7 @@ n개의 노드를 가지고 있는 힙의 높이는 O(logn)<br/>
 #### 힙의 구현
 ```
 #include <iostream>
-#include <cstdio>
+#include <stdio.h>
 
 using namespace std;
 
