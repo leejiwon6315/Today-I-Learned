@@ -209,7 +209,7 @@ public:
     
     int getId(){ return id; }
     Node* getLink(){ return link; }
-    void setLink(Node* l){ link = l; }
+    void setLink( Node* l ){ link = l; }
 };
 
 class AdjListGraph{
@@ -236,7 +236,7 @@ public:
         else printf("Error: 그래프 정점 개수 초과\n");
     }
     
-    void insertEdge( int u, int v){
+    void insertEdge( int u, int v ){
         adj[u] = new Node (v, adj[u]);
         adj[v] = new Node (u, adj[v]); // 방향 그래프 주석 처리함
     }
@@ -260,7 +260,7 @@ public:
 void main(){
     AdjListGraph g;
 
-    for( int i=0 ; i<4 ; i++ )
+    for(int i=0; i<4; i++)
         g.insertVertex('A'+i);
         
     g.insertEdge(0,1);
@@ -276,6 +276,112 @@ void main(){
 <br/>
 
 ### 그래프 탐색
+#### DFS(깊이 우선 탐색)
++ 한 방향으로 갈 수 있을 때까지 가다가 더 이상 갈 수 없게 되면 가장 가까운 갈림길로 돌아와서 이 곳으로부터 다른 방향으로 다시 탐색 진행
++ 되돌아가기 위해서는 스택 필요
+	- 순환함수 호출로 묵시적인 스택 이용
+
+#### DFS 구현(인접행렬)
+```
+#include <stdio.h>
+#include <iostream>
+#include "SrchAMGraph.h"
+
+using namespace std;
+
+class SrchAMGraph : public AdjMatGraph{
+    bool visited[MAX_VTXS];
+    
+public:
+    void resetVisited(){
+	for(int i=0; i<size; i++) visited[i] = false;
+    }
+    
+    bool isLinked(int u, int v){ return getEdge(u,v) != 0; }
+
+    void DFS( int v){
+	visited[v] = true;	
+	printf("%c ", getVertex(v));
+
+	for(int w=0; w<size; w++){
+	    if( isLinked(v,w) && visited[w]==false )
+	    	DFS( w );
+        }
+    }
+};
+```
+
+#### BFS(너비 우선 탐색)
++ 시작 정점으로부터 가까운 정점을 먼저 방문하고 멀리 떨어져 있는 정점을 나중에 방문하는 순회 방법
++ 큐를 사용하여 구현
+
+#### BFS 구현(인접 행렬)
+```
+#include <stdio.h>
+#include <iostream>
+#include "AdjMatGraph.h”
+#include “CircularQueue.h” 
+
+void BFS( int v){
+    visited[v] = true;
+    
+    printf("%c ", getVertex(v));
+
+    CircularQueue que;
+    que.enqueue( v );
+
+    while(!que.isEmpty()){
+        int v = que.dequeue();
+        
+	for(int w=0; w<size; w++){
+            if( isLinked(v,w) && visited[w]==false ){
+                visited[w] = true;
+                printf("%c ", getVertex(w));
+                que.enqueue(w);
+	    }
+        }
+    }
+}
+```
+
+#### 연결 성분
+DFS 또는 BFS 반복 이용하여 최대로 연결된 부분 그래프들을 구함
+```
+class ConnectedComponentGraph : public SrchAMGraph{
+    int label[MAX_VTXS]; 
+    
+public: 
+    void labelDFS( int v, int color ){
+	visited[v] = true;
+	label[v] = color;
+	
+	for(int w=0; w<size; w++){
+	    if( isLinked(v,w) && visited[w]==false )
+		labelDFS( w, color );
+	}
+    }
+    void findConnectedComponent(){
+	int count = 0;
+	
+	for(int i=0; i<size; i++){
+	    if( visited[i]==false)
+		labelDFS(i, ++count);
+	}
+
+	printf("그래프 연결성분 개수 = = %d\n", count);
+	
+	for(int i=0; i<size; i++){
+	    printf( "%c=%d , getVertex(i), label[i] ); 
+	}
+	printf( "\n" );
+    }
+};
+```
+
+#### 신장 트리 알고리즘
++ 모든 정점들이 연결되어야 하고 사이클을 포함하면 안됨
++ 신장 트리는 n-1개의 간선을 가짐
++ 최소의 링크를 사용하는 네트워크 구축 시 사용
 
 <br/>
 <br/>
