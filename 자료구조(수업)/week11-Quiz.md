@@ -60,13 +60,13 @@ int findBridge(){
     
     g->resetVisited();
 
-    for(i = 0; i < g->getSize(); i++){
-        for(j = 0; j < i; j++){
+    for(i=0; i<(g->getSize()); i++){
+        for(j=0; j<i; j++){
             if(g->getEdge(i,j) != 0){
-            g->setEdge(i, j, 0);
-            g->setEdge(j, i, 0);
+                g->setEdge(i, j, 0);
+                g->setEdge(j, i, 0);
 
-            g->resetVisited();
+                g->resetVisited();
 				        
                 if(g->findConnectedComponent()>1){
                     printf(" Bridge%d: %c-%c\n", count+1, g->getVertex(i), g->getVertex(j));
