@@ -68,7 +68,7 @@ int findBridge(){
 
                 g->resetVisited();
 				        
-                if(g->findConnectedComponent()>1){	// 부등호 방향이 왜 > 인지 모르겠음.. < 아닌가
+                if(g->findConnectedComponent()>1){	// 1개 이상의 그래프들이 존재하면 끊어진 것
                     printf(" Bridge%d: %c-%c\n", count+1, g->getVertex(i), g->getVertex(j));
                     count++;
                 }
