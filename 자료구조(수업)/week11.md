@@ -112,11 +112,6 @@ else{
 
 #### 인접 행렬 그래프 구현
 ```
-#include <stdio.h>
-#include <iostream>
-
-using namespace std;
-
 class AdjMatGraph{
 
 protected:
@@ -190,11 +185,6 @@ void main(){
 
 #### 인접 리스트 구현
 ```
-#include <stdio.h>
-#include <iostream>
-
-using namespace std;
-
 class Node{
 
 protected:
@@ -283,11 +273,7 @@ void main(){
 
 #### DFS 구현(인접행렬)
 ```
-#include <stdio.h>
-#include <iostream>
 #include "SrchAMGraph.h"
-
-using namespace std;
 
 class SrchAMGraph : public AdjMatGraph{
     bool visited[MAX_VTXS];
@@ -317,8 +303,6 @@ public:
 
 #### BFS 구현(인접 행렬)
 ```
-#include <stdio.h>
-#include <iostream>
 #include "AdjMatGraph.h”
 #include “CircularQueue.h” 
 
