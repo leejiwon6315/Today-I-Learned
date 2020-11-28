@@ -246,6 +246,7 @@ public:
     }
     
     Node* adjacent(int v){ return adj[v]; }
+}
 
 void main(){
     AdjListGraph g;
