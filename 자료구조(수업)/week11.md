@@ -232,13 +232,13 @@ public:
     }
     
     void display(){
-	      printf("%d\n", size); 
+        printf("%d\n", size); 
 	      
         for(int i=0; i<size; i++){ 
 	          printf("%c ", getVertex(i));
 	
             for(Node *v=adj[i]; v != NULL; v=v->getLink()){
-                printf(" %c", getVertex(v->getId()) );
+                printf(" %c", getVertex(v->getId()));
             }
             // printf("%3d", v->getId());
 	          printf("\n");
