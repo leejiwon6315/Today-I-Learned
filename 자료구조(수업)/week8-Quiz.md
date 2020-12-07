@@ -65,68 +65,115 @@
 ## C8
 ### 트리의 순회결과(전위, 중위, 후위, 레벨)와 전체 노드수, 단말노드 개수, 트리의 높이를 출력하는 코드를 작성하세요.
 ```
-void setRoot(BinaryNode* node){
-  root = node;
-}
+class BinaryTree{
+    //이진트리
+    BinaryNode* root;
+
+public:
+    BinaryTree()
+    : root(NULL){}
     
-BinaryNode* getRoot(){
-  return root;
-}
-
-bool isEmpty(){
-  return root==NULL;
-}
-
-int getCount(){
-  // 전체 노드 수
-  return isEmpty() ? 0 : getCount(root);
-}
-
-int getSubCount(){
-  // 하위 노드 수
-  return isEmpty() ? 0 : getLeafCount(root);
-}
-
-int getHeight(){
-  // 트리의 높이
-  return isEmpty() ? 0 : getHeight(root);
-}
-
-void inorder(){
-  // 중위 순회
-  printf("\n inorder: ");
-  inorder(root);
-}
-
-void preorder(){
-  // 전위 순회
-  printf("\n  preorder: ");
-  preorder(root);
-}
-
-void postorder(){
-  // 후위 순회
-  printf("\n postorder: ");
-  postorder(root);
- }
-    
-void levelorder(){
-  // 레벨 
-  printf("\nlevelorder: ");
-  
-  if(!isEmpty()) {
-    CircularQueue q;
-    q.enqueue( root );
-    
-    while(!q.isEmpty()){
-      BinaryNode* n = q.dequeue();
-      
-      if( n != NULL ) {
-        printf(" [%c] ", n->getData());
-        q.enqueue(n->getLeft ());
-        q.enqueue(n->getRight());
-      }
+    void setRoot(BinaryNode* node){
+        root = node;
     }
-  }
-}
+    
+    BinaryNode* getRoot(){
+        return root;
+    }
+    
+    bool isEmpty(){
+        return (root==NULL);
+    }
+
+    
+    void doInorder(BinaryNode* node){
+        //중위 순회
+        if(node != NULL){
+            if(node->getLeft() != NULL) doInorder(node->getLeft());
+            
+            cout << "[" << node->getData() << "] ";
+            
+            if(node->getRight() != NULL) doInorder(node->getRight());
+        }
+    }
+    void inorder(){
+        doInorder(root);
+    }
+    
+    void doPreorder(BinaryNode* node){
+        //전위 순회
+        if(node != NULL){
+            cout << "[" << node->getData() << "] ";
+            
+            if(node->getLeft() != NULL) doPreorder(node->getLeft());
+            if(node->getRight() != NULL) doPreorder(node->getRight());
+        }
+    }
+    void preorder(){
+        doPreorder(root);
+    }
+    
+    void doPostorder(BinaryNode* node){
+        //후위 순회
+        if(node != NULL){
+            if(node->getLeft() != NULL) doPostorder(node->getLeft());
+            if(node->getRight() != NULL) doPostorder(node->getRight());
+            cout << "[" << node->getData() << "] ";
+        }
+    }
+    void postorder(){
+        doPostorder(root);
+    }
+    
+    void levelorder(){
+        //레벨 순회
+        if(!isEmpty()){
+            CircularQueue q;
+            q.enqueue(root);
+            
+            while(!q.isEmpty()){
+                BinaryNode* node = q.dequeue();
+                
+                if(node != NULL){
+                    cout << "[" << node->getData() << "] ";
+                    q.enqueue(node->getLeft());
+                    q.enqueue(node->getRight());
+                }
+            }
+        }
+        cout << "\n";
+    }
+    
+    int countNode(BinaryNode* node){
+        //트리 노드 개수
+        if(node == NULL) return 0;
+        return (1 + countNode(node->getLeft()) + countNode(node->getRight()));
+    }
+    int getCount(){
+        return isEmpty() ? 0 : countNode(root);
+    }
+
+    int countLeaf(BinaryNode* node){
+        //트리 단말노드 개수
+        if(node == NULL) return 0;
+        
+        if(node->isLeaf()) return 1;
+        else return countLeaf(node->getLeft())+countLeaf(node->getRight());
+    }
+    int getLeafCount(){
+        return isEmpty() ? 0 : countLeaf(root);
+    }
+
+    int calHeight(BinaryNode* node){
+        //트리 높이
+        if(node == NULL) return 0;
+        int hLeft = calHeight(node->getLeft());
+        int hRight = calHeight(node->getRight());
+        
+        return (hLeft>hRight ? hLeft+1 : hRight+1);
+    }
+    int getHeight(){
+        return (isEmpty() ? 0 : calHeight(root));
+    }
+};
 ```
