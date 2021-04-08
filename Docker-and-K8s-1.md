@@ -1,5 +1,5 @@
-# Docker
-Docker에 대한 개념을 간략하게 정리해 보았습니다. <br/>
+# Docker and K8s
+Docker와 Kubernetes에 대해 간략하게 정리한 내용입니다.
 
 # Docker
 Docker는 리눅스 컨테이너를 만들고 사용할 수 있도록 하는 컨테이너화 기술입니다. <br/>
